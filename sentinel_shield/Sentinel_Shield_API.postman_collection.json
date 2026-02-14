@@ -1,0 +1,867 @@
+{
+    "info": {
+        "name": "Sentinel Shield API Collection",
+        "description": "Complete API testing collection for Sentinel Shield Enterprise Security Platform.\n\nIncludes:\n- Authentication\n- Link Scanner with homoglyph detection\n- Honeypot Chatbot conversation\n- AI Security Analyst\n- Email Analysis\n- Dark Web Monitoring\n- Training APIs\n- All security modules\n\nImport into Postman and run Login first to get auth token.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:8000"
+        },
+        {
+            "key": "token",
+            "value": ""
+        }
+    ],
+    "item": [
+        {
+            "name": "🔐 1. Authentication",
+            "item": [
+                {
+                    "name": "Login (Get Token) - RUN FIRST",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "var jsonData = pm.response.json();",
+                                    "if (jsonData.access_token) {",
+                                    "    pm.collectionVariables.set('token', jsonData.access_token);",
+                                    "    console.log('✅ Token saved!');",
+                                    "}",
+                                    "pm.test('Login successful', function() {",
+                                    "    pm.response.to.have.status(200);",
+                                    "    pm.expect(jsonData).to.have.property('access_token');",
+                                    "});"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "username",
+                                    "value": "admin@sentinel.local"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "admin123"
+                                }
+                            ]
+                        },
+                        "url": "{{base_url}}/api/v1/auth/login"
+                    }
+                },
+                {
+                    "name": "Get Current User",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/auth/me"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "🔗 2. Link Scanner",
+            "item": [
+                {
+                    "name": "Scan Phishing URL (paypa1-security.tk)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "var jsonData = pm.response.json();",
+                                    "pm.test('URL detected as malicious', function() {",
+                                    "    pm.expect(jsonData.threat_score).to.be.above(50);",
+                                    "    pm.expect(jsonData.is_malicious).to.be.true;",
+                                    "});",
+                                    "pm.test('Homoglyph detected', function() {",
+                                    "    var hasHomoglyph = jsonData.indicators.some(i => i.indicator_type === 'homoglyph_attack');",
+                                    "    pm.expect(hasHomoglyph).to.be.true;",
+                                    "});"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"url\": \"https://paypa1-security.tk/verify-account\"}"
+                        },
+                        "url": "{{base_url}}/api/v1/links/analyze"
+                    }
+                },
+                {
+                    "name": "Scan Microsoft Phishing",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"url\": \"https://micr0soft-login.xyz/signin\"}"
+                        },
+                        "url": "{{base_url}}/api/v1/links/analyze"
+                    }
+                },
+                {
+                    "name": "Scan Safe URL (google.com)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"url\": \"https://www.google.com\"}"
+                        },
+                        "url": "{{base_url}}/api/v1/links/analyze"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "🍯 3. Honeypot Chatbot",
+            "description": "Simulate scammer conversation. Run in order to see full bluff flow.",
+            "item": [
+                {
+                    "name": "Step 1: Start Honeypot Session",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "var jsonData = pm.response.json();",
+                                    "if (jsonData.session_id) {",
+                                    "    pm.collectionVariables.set('honeypot_session', jsonData.session_id);",
+                                    "    console.log('Session ID saved: ' + jsonData.session_id);",
+                                    "}"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email_id\": \"email_001\",\n  \"scam_type\": \"advance_fee\",\n  \"confidence\": 98.5,\n  \"scammer_email\": \"prince@nigeria-lottery.tk\",\n  \"original_message\": \"Dear Friend, I am Prince Abdullah from Nigeria. I have $15 million USD that I need to transfer to your country. Please send me your bank details and $500 transfer fee to receive the funds. Contact me at prince@nigeria-lottery.tk or call +234-800-123-4567\"\n}"
+                        },
+                        "url": "{{base_url}}/api/v1/honeypot/session/start"
+                    }
+                },
+                {
+                    "name": "Step 2: Scammer Sends 2nd Message",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"session_id\": \"{{honeypot_session}}\",\n  \"scammer_message\": \"Why haven't you replied? The money is waiting! You will receive $15 MILLION! Just send me the $500 transfer fee to my Bitcoin wallet: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa. This is urgent!\"\n}"
+                        },
+                        "url": "{{base_url}}/api/v1/honeypot/session/chat"
+                    }
+                },
+                {
+                    "name": "Step 3: Scammer Gets Angry",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"session_id\": \"{{honeypot_session}}\",\n  \"scammer_message\": \"You are wasting my time! This is REAL money! I am a REAL prince! Send the fee NOW or I will give this opportunity to someone else! My lawyer at lawyer@scam-legal.ml will contact you!\"\n}"
+                        },
+                        "url": "{{base_url}}/api/v1/honeypot/session/chat"
+                    }
+                },
+                {
+                    "name": "Step 4: Scammer Final Attempt",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"session_id\": \"{{honeypot_session}}\",\n  \"scammer_message\": \"Fine! I reduce the fee to only $200! Send via Western Union to John Doe in Lagos, Nigeria. Reference code: SCAM123. Here is my bank: Account 1234567890, Routing 987654321. Last chance!\"\n}"
+                        },
+                        "url": "{{base_url}}/api/v1/honeypot/session/chat"
+                    }
+                },
+                {
+                    "name": "Get Session Details",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/honeypot/session/{{honeypot_session}}"
+                    }
+                },
+                {
+                    "name": "List All Sessions",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/honeypot/sessions"
+                    }
+                },
+                {
+                    "name": "Get Honeypot Stats",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/honeypot/stats"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "🌑 4. Dark Web Monitoring",
+            "item": [
+                {
+                    "name": "Get Monitoring Status",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/darkweb/status"
+                    }
+                },
+                {
+                    "name": "Get Data Sources (HIBP, etc)",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/darkweb/sources"
+                    }
+                },
+                {
+                    "name": "Get All Employee Breach Status",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/darkweb/employees"
+                    }
+                },
+                {
+                    "name": "Check Single Email Breach",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\": \"john.smith@company.com\"}"
+                        },
+                        "url": "{{base_url}}/api/v1/darkweb/check/email"
+                    }
+                },
+                {
+                    "name": "Check Email (Sarah Jones - Multiple Breaches)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\": \"sarah.jones@company.com\"}"
+                        },
+                        "url": "{{base_url}}/api/v1/darkweb/check/email"
+                    }
+                },
+                {
+                    "name": "Get Breach Alerts",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/darkweb/alerts"
+                    }
+                },
+                {
+                    "name": "Get Dark Web Mentions",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/darkweb/dark-web/mentions"
+                    }
+                },
+                {
+                    "name": "Get Breach Statistics",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/darkweb/stats"
+                    }
+                },
+                {
+                    "name": "Trigger Full Scan",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/darkweb/scan/full"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "📧 5. Email Analysis",
+            "item": [
+                {
+                    "name": "Analyze Phishing Email",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"sender\": \"security@paypa1-verify.tk\",\n  \"sender_name\": \"PayPal Security\",\n  \"subject\": \"URGENT: Your Account Has Been Suspended!\",\n  \"body\": \"Dear Customer, Your PayPal account has been suspended due to suspicious activity. Click here immediately to verify your identity or your account will be permanently closed within 24 hours! Visit https://paypa1-security.tk/verify NOW!\"\n}"
+                        },
+                        "url": "{{base_url}}/api/v1/emails/analyze"
+                    }
+                },
+                {
+                    "name": "Analyze CEO Fraud Email",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"sender\": \"ceo@company-urgent.ml\",\n  \"sender_name\": \"John CEO\",\n  \"subject\": \"Urgent favor - confidential\",\n  \"body\": \"Hey, I'm in a meeting. Buy $500 in Amazon gift cards for a client surprise. Scratch off the backs and send me photos of the codes. Don't tell anyone.\"\n}"
+                        },
+                        "url": "{{base_url}}/api/v1/emails/analyze"
+                    }
+                },
+                {
+                    "name": "Analyze Safe Email",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"sender\": \"john.smith@company.com\",\n  \"sender_name\": \"John Smith\",\n  \"subject\": \"Q4 Report Summary\",\n  \"body\": \"Hi Team, Here is the Q4 report. Revenue up 15% YoY. Looking forward to discussing tomorrow.\"\n}"
+                        },
+                        "url": "{{base_url}}/api/v1/emails/analyze"
+                    }
+                },
+                {
+                    "name": "Get Quarantine List",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/emails/quarantine"
+                    }
+                },
+                {
+                    "name": "Get Analysis History",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/emails/history"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "🤖 6. AI Analyst",
+            "item": [
+                {
+                    "name": "Ask About Phishing",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"query\": \"What are the signs of a phishing email?\"}"
+                        },
+                        "url": "{{base_url}}/api/v1/ai/ask"
+                    }
+                },
+                {
+                    "name": "Analyze Suspicious URL",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"query\": \"Is this URL safe: https://paypa1-security.tk/verify-account\"}"
+                        },
+                        "url": "{{base_url}}/api/v1/ai/ask"
+                    }
+                },
+                {
+                    "name": "Security Best Practices",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"query\": \"How do I protect against CEO fraud?\"}"
+                        },
+                        "url": "{{base_url}}/api/v1/ai/ask"
+                    }
+                },
+                {
+                    "name": "Get AI Capabilities",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/ai/capabilities"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "📄 7. Document Sandbox",
+            "item": [
+                {
+                    "name": "Get Sandbox Config",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/sandbox/config"
+                    }
+                },
+                {
+                    "name": "Start Sandbox Session",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "var jsonData = pm.response.json();",
+                                    "if (jsonData.session_id) {",
+                                    "    pm.collectionVariables.set('sandbox_session', jsonData.session_id);",
+                                    "}"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email_id\": \"email_suspicious_001\"}"
+                        },
+                        "url": "{{base_url}}/api/v1/sandbox/session/start"
+                    }
+                },
+                {
+                    "name": "Scan PDF Document",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"session_id\": \"{{sandbox_session}}\",\n  \"filename\": \"invoice.pdf\",\n  \"content_base64\": \"JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoKMiAwIG9iago8PAovVHlwZSAvUGFnZQo+PgplbmRvYmoKeHJlZgowIDMKMDAwMDAwMDAwMCA2NTUzNSBmIAp0cmFpbGVyCjw8Ci9TaXplIDMKPj4Kc3RhcnR4cmVmCjExNgolJUVPRgo=\"\n}"
+                        },
+                        "url": "{{base_url}}/api/v1/sandbox/scan"
+                    }
+                },
+                {
+                    "name": "Scan Office Document (Macro)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"session_id\": \"{{sandbox_session}}\",\n  \"filename\": \"invoice.docm\",\n  \"content_base64\": \"UEsDBBQAAAAIAFZsb2MATWF0Y2gA\"\n}"
+                        },
+                        "url": "{{base_url}}/api/v1/sandbox/scan"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "🎓 8. Security Training",
+            "item": [
+                {
+                    "name": "Get Training Dashboard",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/training/dashboard"
+                    }
+                },
+                {
+                    "name": "Get Leaderboard",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/training/leaderboard"
+                    }
+                },
+                {
+                    "name": "Get Available Modules",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/training/modules"
+                    }
+                },
+                {
+                    "name": "Get Phishing Simulation",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/training/simulate"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "📊 9. Dashboard",
+            "item": [
+                {
+                    "name": "Get Dashboard Stats",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/dashboard/stats"
+                    }
+                },
+                {
+                    "name": "Get Active Alerts",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/dashboard/alerts"
+                    }
+                },
+                {
+                    "name": "Get Threat Timeline",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/dashboard/timeline"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "📱 10. Mobile Shield",
+            "item": [
+                {
+                    "name": "Explain Local Shield",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/mobile/explain-local-shield"
+                    }
+                },
+                {
+                    "name": "Get Mobile Status",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": "{{base_url}}/api/v1/mobile/status"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "🔧 11. System",
+            "item": [
+                {
+                    "name": "Health Check (No Auth)",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base_url}}/health"
+                    }
+                },
+                {
+                    "name": "API Documentation",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{base_url}}/docs"
+                    }
+                }
+            ]
+        }
+    ]
+}

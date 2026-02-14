@@ -1,0 +1,68 @@
+{
+  "very_high": {
+    "tlds": [
+      ".tk",
+      ".ml",
+      ".ga",
+      ".cf",
+      ".gq",
+      ".top",
+      ".xyz",
+      ".icu",
+      ".buzz",
+      ".work",
+      ".click",
+      ".link",
+      ".best",
+      ".rest",
+      ".host"
+    ],
+    "score": 30,
+    "reason": "Free/cheap TLDs heavily abused in phishing"
+  },
+  "high": {
+    "tlds": [
+      ".info",
+      ".biz",
+      ".online",
+      ".site",
+      ".website",
+      ".space",
+      ".fun",
+      ".download",
+      ".win",
+      ".review",
+      ".party",
+      ".loan"
+    ],
+    "score": 20,
+    "reason": "High phishing/spam prevalence"
+  },
+  "medium": {
+    "tlds": [
+      ".pw",
+      ".cc",
+      ".ws",
+      ".us",
+      ".mobi",
+      ".in",
+      ".ru"
+    ],
+    "score": 10,
+    "reason": "Moderate abuse seen"
+  },
+  "low": {
+    "tlds": [
+      ".com",
+      ".org",
+      ".net",
+      ".edu",
+      ".gov",
+      ".co.uk",
+      ".de",
+      ".fr"
+    ],
+    "score": 0,
+    "reason": "Established TLDs with good reputation"
+  }
+}

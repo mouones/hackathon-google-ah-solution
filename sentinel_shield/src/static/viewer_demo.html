@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safe Email Viewer Demo - Sentinel Shield</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #1a365d, #2c5282);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .demo-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #2c5282;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 6px;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #4299e1;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2c5282, #2b6cb0);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .demo-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .sample-emails {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .sample-emails h3 {
+            color: #4a5568;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .sample-btn {
+            background: #ebf8ff;
+            border: 2px solid #90cdf4;
+            color: #2b6cb0;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            margin: 5px;
+        }
+
+        .sample-btn:hover {
+            background: #bee3f8;
+        }
+
+        .sample-btn.danger {
+            background: #fff5f5;
+            border-color: #feb2b2;
+            color: #c53030;
+        }
+
+        #result {
+            margin-top: 20px;
+            display: none;
+        }
+
+        #result iframe {
+            width: 100%;
+            height: 800px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .feature {
+            background: #f7fafc;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            color: #2c5282;
+        }
+
+        .feature-desc {
+            font-size: 0.85rem;
+            color: #718096;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🛡️ Safe Email Viewer</h1>
+        <p class="subtitle">View emails safely with threat highlighting and protection</p>
+
+        <div class="demo-card">
+            <h2>📧 Enter Email to View Safely</h2>
+
+            <div class="sample-emails">
+                <h3>Or try a sample email:</h3>
+                <button class="sample-btn" onclick="loadSample('legitimate')">✓ Legitimate Email</button>
+                <button class="sample-btn danger" onclick="loadSample('phishing')">⚠️ Phishing Email</button>
+                <button class="sample-btn danger" onclick="loadSample('malware')">🦠 Malware Email</button>
+                <button class="sample-btn danger" onclick="loadSample('urgent')">🔥 Urgency Scam</button>
+            </div>
+
+            <form id="emailForm">
+                <div class="form-group">
+                    <label>From (Email Address)</label>
+                    <input type="email" id="sender" placeholder="sender@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>From (Display Name)</label>
+                    <input type="text" id="senderName" placeholder="Sender Name">
+                </div>
+
+                <div class="form-group">
+                    <label>To</label>
+                    <input type="email" id="recipient" value="you@company.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Subject</label>
+                    <input type="text" id="subject" placeholder="Email subject" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Body (HTML or plain text)</label>
+                    <textarea id="body" placeholder="Email content..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Attachments (comma-separated filenames)</label>
+                    <input type="text" id="attachments" placeholder="report.pdf, invoice.docm">
+                </div>
+
+                <div class="demo-buttons">
+                    <button type="submit" class="btn btn-primary">
+                        🔍 View Safely
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="clearForm()">
+                        Clear
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="demo-card">
+            <h2>🔒 What This Does</h2>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🛡️</div>
+                    <div class="feature-title">Sanitizes HTML</div>
+                    <div class="feature-desc">Removes scripts, iframes, and dangerous content</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-title">Highlights Threats</div>
+                    <div class="feature-desc">Color-codes urgency tactics and suspicious phrases</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔗</div>
+                    <div class="feature-title">Analyzes Links</div>
+                    <div class="feature-desc">Flags dangerous URLs before you click</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📎</div>
+                    <div class="feature-title">Sandbox Attachments</div>
+                    <div class="feature-desc">Open files safely in isolated environment</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">👨‍💼</div>
+                    <div class="feature-title">Report to Admin</div>
+                    <div class="feature-desc">Submit suspicious emails for review</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🚫</div>
+                    <div class="feature-title">Block Execution</div>
+                    <div class="feature-desc">Prevents code from running in preview</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="result" class="demo-card">
+            <h2>📬 Safe Email Preview</h2>
+            <iframe id="viewerFrame" sandbox="allow-scripts"></iframe>
+        </div>
+    </div>
+
+    <script>
+        const samples = {
+            legitimate: {
+                sender: "john.smith@company.com",
+                senderName: "John Smith",
+                subject: "Q4 Report Summary",
+                body: `<p>Hi team,</p>
+                
+<p>Please find attached the Q4 report summary. Key highlights:</p>
+
+<ul>
+    <li>Revenue increased 15% YoY</li>
+    <li>Customer satisfaction at 92%</li>
+    <li>New product launch on track</li>
+</ul>
+
+<p>Let me know if you have any questions.</p>
+
+<p>Best regards,<br>John</p>`,
+                attachments: "Q4_Report.pdf"
+            },
+
+            phishing: {
+                sender: "security@paypa1-verify.tk",
+                senderName: "PayPal Security Team",
+                subject: "URGENT: Your Account Has Been Suspended!",
+                body: `<p>Dear Valued Customer,</p>
+
+<p><strong>⚠️ URGENT: Your PayPal account has been suspended due to suspicious activity!</strong></p>
+
+<p>We detected <mark>unauthorized access</mark> to your account. To restore access, you must verify your identity immediately.</p>
+
+<p><strong>CLICK HERE TO VERIFY YOUR ACCOUNT:</strong><br>
+<a href="http://paypal-secure.verify-account.tk/login">http://paypal-secure.verify-account.tk/login</a></p>
+
+<p>You must complete verification within <strong>24 hours</strong> or your account will be permanently locked.</p>
+
+<p>Required Information:</p>
+<ul>
+    <li>Your password</li>
+    <li>Social Security Number</li>
+    <li>Credit card number</li>
+    <li>Bank account details</li>
+</ul>
+
+<p><em>This is your final notice.</em></p>
+
+<p>PayPal Security Team</p>
+
+<script>alert('You have been hacked!');</script>`,
+    attachments: ""
+    },
+
+    malware: {
+    sender: "invoices@suppIier-payments.xyz",
+    senderName: "Accounts Payable",
+    subject: "Invoice #INV-2024-5847 - Payment Required",
+    body: `<p>Dear Accounts Team,</p>
+
+    <p>Please find attached the invoice for services rendered.</p>
+
+    <p><strong>Invoice Details:</strong></p>
+    <ul>
+        <li>Invoice #: INV-2024-5847</li>
+        <li>Amount: $12,459.00</li>
+        <li>Due Date: TODAY</li>
+    </ul>
+
+    <p>Please process this payment immediately to avoid late fees.</p>
+
+    <p><strong>IMPORTANT:</strong> Enable macros to view the full invoice details.</p>
+
+    <p>For wire transfer instructions, download the attached document.</p>
+
+    <p>Best regards,<br>
+        Accounts Payable Department</p>`,
+    attachments: "Invoice_2024_5847.docm, payment_details.exe"
+    },
+
+    urgent: {
+    sender: "ceo.office@company-urgent.ml",
+    senderName: "CEO John Anderson",
+    subject: "URGENT - Need your help NOW",
+    body: `<p>Hey,</p>
+
+    <p>I need your help with something urgent and confidential.</p>
+
+    <p>I'm in a meeting and can't make calls. I need you to purchase $500 in Amazon gift cards for a client RIGHT NOW.
+        I'll reimburse you after my meeting.</p>
+
+    <p><strong>ACT NOW - This is time sensitive!</strong></p>
+
+    <p>Buy the gift cards and send me the codes immediately. Don't tell anyone about this - it's a surprise for the
+        client.</p>
+
+    <p>I'm counting on you. This is very URGENT.</p>
+
+    <p>Thanks,<br>
+        John<br>
+        <em>Sent from my iPhone</em>
+    </p>`,
+    attachments: ""
+    }
+    };
+
+    function loadSample(type) {
+    const sample = samples[type];
+    document.getElementById('sender').value = sample.sender;
+    document.getElementById('senderName').value = sample.senderName;
+    document.getElementById('subject').value = sample.subject;
+    document.getElementById('body').value = sample.body;
+    document.getElementById('attachments').value = sample.attachments;
+    }
+
+    function clearForm() {
+    document.getElementById('emailForm').reset();
+    document.getElementById('result').style.display = 'none';
+    }
+
+    document.getElementById('emailForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const attachments = document.getElementById('attachments').value
+    .split(',')
+    .filter(a => a.trim())
+    .map(a => ({ name: a.trim(), type: 'unknown', size: 'Unknown' }));
+
+    const emailData = {
+    sender: document.getElementById('sender').value,
+    sender_name: document.getElementById('senderName').value,
+    recipient: document.getElementById('recipient').value,
+    subject: document.getElementById('subject').value,
+    body_html: document.getElementById('body').value,
+    received_at: new Date().toISOString(),
+    attachments: attachments.length > 0 ? attachments : null
+    };
+
+    try {
+    const response = await fetch('/api/v1/viewer/view', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(emailData)
+    });
+
+    const html = await response.text();
+
+    const frame = document.getElementById('viewerFrame');
+    frame.srcdoc = html;
+
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+
+    } catch (error) {
+    alert('Error: ' + error.message);
+    }
+    });
+    </script>
+</body>
+
+</html>

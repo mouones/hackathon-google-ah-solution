@@ -1,0 +1,254 @@
+{
+  "microsoft": {
+    "domains": [
+      "microsoft.com",
+      "office.com",
+      "live.com",
+      "outlook.com",
+      "azure.com",
+      "msn.com"
+    ],
+    "keywords": [
+      "microsoft",
+      "office365",
+      "outlook",
+      "azure",
+      "windows"
+    ],
+    "homoglyphs": [
+      "rnicrosoft",
+      "microsft",
+      "rnlcrosoft",
+      "n1crosoft"
+    ]
+  },
+  "google": {
+    "domains": [
+      "google.com",
+      "gmail.com",
+      "youtube.com",
+      "drive.google.com"
+    ],
+    "keywords": [
+      "google",
+      "gmail",
+      "youtube",
+      "drive"
+    ],
+    "homoglyphs": [
+      "g00gle",
+      "googIe",
+      "goog1e",
+      "gooogle"
+    ]
+  },
+  "amazon": {
+    "domains": [
+      "amazon.com",
+      "aws.amazon.com",
+      "amzn.to"
+    ],
+    "keywords": [
+      "amazon",
+      "prime",
+      "aws"
+    ],
+    "homoglyphs": [
+      "amaz0n",
+      "arnazon",
+      "am\u0430zon"
+    ]
+  },
+  "apple": {
+    "domains": [
+      "apple.com",
+      "icloud.com",
+      "appleid.apple.com"
+    ],
+    "keywords": [
+      "apple",
+      "icloud",
+      "appleid",
+      "itunes"
+    ],
+    "homoglyphs": [
+      "\u0430pple",
+      "app1e",
+      "appIe"
+    ]
+  },
+  "paypal": {
+    "domains": [
+      "paypal.com",
+      "paypal.me"
+    ],
+    "keywords": [
+      "paypal",
+      "payment"
+    ],
+    "homoglyphs": [
+      "paypa1",
+      "payp\u0430l",
+      "p\u0430ypal",
+      "paypaI"
+    ]
+  },
+  "netflix": {
+    "domains": [
+      "netflix.com"
+    ],
+    "keywords": [
+      "netflix",
+      "streaming"
+    ],
+    "homoglyphs": [
+      "netf1ix",
+      "netfIix",
+      "n\u0435tflix"
+    ]
+  },
+  "facebook": {
+    "domains": [
+      "facebook.com",
+      "fb.com",
+      "meta.com"
+    ],
+    "keywords": [
+      "facebook",
+      "meta",
+      "instagram"
+    ],
+    "homoglyphs": [
+      "faceb00k",
+      "f\u0430cebook",
+      "faceboo\u043a"
+    ]
+  },
+  "linkedin": {
+    "domains": [
+      "linkedin.com"
+    ],
+    "keywords": [
+      "linkedin",
+      "professional"
+    ],
+    "homoglyphs": [
+      "linkedln",
+      "1inkedin",
+      "link\u0435din"
+    ]
+  },
+  "chase": {
+    "domains": [
+      "chase.com",
+      "jpmorganchase.com"
+    ],
+    "keywords": [
+      "chase",
+      "jpmorgan",
+      "banking"
+    ],
+    "homoglyphs": [
+      "ch\u0430se",
+      "\u0441hase",
+      "chas\u0435"
+    ]
+  },
+  "bankofamerica": {
+    "domains": [
+      "bankofamerica.com",
+      "bofa.com"
+    ],
+    "keywords": [
+      "bank of america",
+      "bofa",
+      "banking"
+    ],
+    "homoglyphs": [
+      "bankof\u0430merica",
+      "b\u0430nkofamerica"
+    ]
+  },
+  "wellsfargo": {
+    "domains": [
+      "wellsfargo.com"
+    ],
+    "keywords": [
+      "wells fargo",
+      "banking"
+    ],
+    "homoglyphs": [
+      "wellsfarg0",
+      "weIlsfargo"
+    ]
+  },
+  "docusign": {
+    "domains": [
+      "docusign.com",
+      "docusign.net"
+    ],
+    "keywords": [
+      "docusign",
+      "signature",
+      "document"
+    ],
+    "homoglyphs": [
+      "d0cusign",
+      "docuslgn"
+    ]
+  },
+  "dropbox": {
+    "domains": [
+      "dropbox.com"
+    ],
+    "keywords": [
+      "dropbox",
+      "file sharing"
+    ],
+    "homoglyphs": [
+      "dr0pbox",
+      "dropb0x"
+    ]
+  },
+  "ups": {
+    "domains": [
+      "ups.com"
+    ],
+    "keywords": [
+      "ups",
+      "delivery",
+      "shipping"
+    ],
+    "homoglyphs": [
+      "u\u0440s"
+    ]
+  },
+  "fedex": {
+    "domains": [
+      "fedex.com"
+    ],
+    "keywords": [
+      "fedex",
+      "delivery",
+      "shipping"
+    ],
+    "homoglyphs": [
+      "f\u0435dex",
+      "fed\u0435x"
+    ]
+  },
+  "dhl": {
+    "domains": [
+      "dhl.com"
+    ],
+    "keywords": [
+      "dhl",
+      "delivery",
+      "express"
+    ],
+    "homoglyphs": [
+      "dhI",
+      "dh1"
+    ]
+  }
+}

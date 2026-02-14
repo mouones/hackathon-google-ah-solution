@@ -1,0 +1,76 @@
+i wanna full plan of architecture technicality and many utilits as possible
+
+Maybe mentionning dataset  ai model used
+
+
+
+md file 
+
+
+
+
+
+platform or a system 
+
+Detect phishing and fraud 
+
+
+
+scans for email
+
+
+
+make sure networks in small busniess are good (like marketing cant access sells network .. ) and it  blocks any esculating prevlige detected
+
+
+
+
+
+use sandbox to test exe ( make an idea more of user friendly to open attachment on like everyday)
+
+
+
+email view that highlights questinable things ( like rn looks like m )
+
+
+
+Make sure emails entring like microsoftt ( is a big company so it flag it derectly)
+
+
+
+make look formal email regognisstion so it doesnt accept it
+
+
+
+make check for links like use virustotal
+
+
+
+report breaching deepweb scans ( use as many api and sites to check )
+
+
+
+get notification from dev related things like update on framework cve critical and warning ...
+
+
+
+reformat the view of files like in python u might download something at in the very right of the screen theres a malicous code  so refromating make it easier to view 
+make b2b if u can
+add more utilits without getting to coding but mentionning all technicality 
+isolate any effected  machine  like one machin sending all other a mail it suspecious so it flag it 
+not nessasry havinc soc analyses maybe just admin dashboard so it can be in theier local servers and run
+heavy block on firewall espicaly in departments like marketing sells ( it has no functionality to open a port or reverse shell or whetever in that kind )
+Make use of sandboxs
+alert in admin dash
+Do like full md presentation of this project with adding many utils and if you wwant add more feautres just make all thing like can be developed not like an Ai model will do that but theres non or cant be developed 
+make other solution for fraude like sms phone calls social engeniering
+Theres a owned phishing email sends randomly to employe too test thier security awareness and save the scores so it will be on thier stats for HR and futures meetings ..
+make use of virus total or like it that kinda accesable 
+make heavy malware anlysist that runs on the more suspected files 
+if u can make more things like to protect from session stealers cookie stealer 
+Maybe like USB stick that has cookies and session and has password so the emplyee put it and act like its normal desktop while it handel all that privacy and protection maybe just letting the sites access it once and not been copy and send 
+blocks conquetive search like search for */*firefox */chrom ...
+in addition add more platform we can collab with 
+we need to make the more of things locally so it doesnt have a problem with trasparancy with network and varnubilty leaking our clients data
+make BMC and architecture for all of this 
+add user case and scenario

@@ -1,0 +1,41 @@
+From: invoice@suppIier-payments.xyz
+To: accounting@company.com
+Subject: Invoice #5847 - Payment Required TODAY
+Date: Sat, 14 Dec 2024 07:30:00 +0000
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="----=_NextPart_001"
+
+------=_NextPart_001
+Content-Type: text/html; charset="utf-8"
+
+<html>
+<body style="font-family: Arial, sans-serif;">
+<p>Dear Accounts Payable,</p>
+<p>Please find attached <b>urgent invoice #5847</b> requiring immediate payment.</p>
+<p>This invoice is <span style="color: red; font-weight: bold;">OVERDUE</span> and must be paid TODAY to avoid late fees and service interruption.</p>
+<p><b>Payment Details:</b></p>
+<ul>
+    <li>Amount: $47,250.00</li>
+    <li>Due Date: TODAY</li>
+    <li>Wire to: Account details in attachment</li>
+</ul>
+<p>Please enable macros in the attached document to view payment instructions.</p>
+<p>Best regards,<br>Accounts Department<br>SupplierPayments Inc.</p>
+</body>
+</html>
+
+------=_NextPart_001
+Content-Type: application/octet-stream; name="Invoice_5847.docm"
+Content-Disposition: attachment; filename="Invoice_5847.docm"
+Content-Transfer-Encoding: base64
+
+UEsDBBQAAAAIAFake== (simulated malicious macro-enabled document)
+
+------=_NextPart_001
+Content-Type: application/octet-stream; name="payment_info.exe"
+Content-Disposition: attachment; filename="payment_info.exe"
+Content-Transfer-Encoding: base64
+
+TVqQAAMAAAAEAAAA (simulated malware executable)
+
+------=_NextPart_001--

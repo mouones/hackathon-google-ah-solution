@@ -1,0 +1,618 @@
+/* Sentinel Shield - Secure Email Viewer Styles */
+
+.email-viewer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.email-viewer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e2e8f0;
+  margin-bottom: 20px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-left h2 {
+  margin: 0;
+  color: #1a365d;
+  font-size: 24px;
+}
+
+.close-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  background: #dc2626;
+}
+
+/* Risk Badges */
+.risk-badge {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.risk-safe {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.risk-low {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.risk-suspicious {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.risk-dangerous {
+  background: #fecaca;
+  color: #991b1b;
+}
+
+.risk-critical {
+  background: #991b1b;
+  color: white;
+  animation: pulse-danger 2s infinite;
+}
+
+@keyframes pulse-danger {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+/* Warning Banner */
+.warning-banner {
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.warning-banner.risk-critical {
+  background: #7f1d1d;
+  color: white;
+}
+
+.warning-banner.risk-dangerous {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 2px solid #ef4444;
+}
+
+.warning-banner.risk-suspicious {
+  background: #fffbeb;
+  color: #92400e;
+  border: 2px solid #f59e0b;
+}
+
+.warning-icon {
+  font-size: 24px;
+}
+
+/* Email Metadata */
+.email-metadata {
+  background: #f7fafc;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.metadata-row {
+  display: flex;
+  gap: 10px;
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.metadata-row strong {
+  min-width: 80px;
+  color: #4a5568;
+}
+
+/* Threats Panel */
+.threats-panel {
+  background: #fef2f2;
+  border: 2px solid #ef4444;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.threats-panel h3 {
+  margin-top: 0;
+  color: #991b1b;
+  font-size: 18px;
+}
+
+.threats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.threat-item {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid;
+}
+
+.threat-header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.severity-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.severity-badge.critical {
+  background: #991b1b;
+  color: white;
+}
+
+.severity-badge.high {
+  background: #dc2626;
+  color: white;
+}
+
+.severity-badge.medium {
+  background: #f59e0b;
+  color: white;
+}
+
+.severity-badge.low {
+  background: #3b82f6;
+  color: white;
+}
+
+.threat-type {
+  color: #4a5568;
+  font-size: 13px;
+  text-transform: capitalize;
+}
+
+.threat-original,
+.threat-explanation,
+.threat-action {
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.threat-original strong,
+.threat-explanation strong,
+.threat-action strong {
+  color: #1a365d;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+/* Attachments Panel */
+.attachments-panel {
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.attachments-panel h3 {
+  margin-top: 0;
+  color: #1a365d;
+}
+
+.attachments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.attachment-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  border: 2px solid #e2e8f0;
+}
+
+.attachment-item.risk-critical {
+  border-color: #ef4444;
+  background: #fef2f2;
+}
+
+.attachment-item.risk-high {
+  border-color: #f59e0b;
+  background: #fffbeb;
+}
+
+.attachment-icon {
+  font-size: 32px;
+  min-width: 40px;
+  text-align: center;
+}
+
+.attachment-info {
+  flex: 1;
+}
+
+.attachment-name {
+  font-weight: 600;
+  color: #1a365d;
+  margin-bottom: 4px;
+}
+
+.attachment-details {
+  font-size: 12px;
+  color: #718096;
+}
+
+.attachment-warning {
+  font-size: 13px;
+  color: #991b1b;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.attachment-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-sandbox,
+.btn-download {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-sandbox {
+  background: #2c5282;
+  color: white;
+}
+
+.btn-sandbox:hover {
+  background: #1a365d;
+}
+
+.btn-download {
+  background: #e2e8f0;
+  color: #1a365d;
+}
+
+.btn-download:hover {
+  background: #cbd5e0;
+}
+
+.btn-download:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Email Body Panel */
+.email-body-panel {
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: #f7fafc;
+  border-bottom: 1px solid #e2e8f0;
+  border-radius: 8px 8px 0 0;
+}
+
+.panel-header h3 {
+  margin: 0;
+  color: #1a365d;
+}
+
+.view-controls {
+  display: flex;
+  gap: 15px;
+  font-size: 14px;
+}
+
+.view-controls label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.email-body-content {
+  padding: 20px;
+  min-height: 300px;
+  max-height: 600px;
+  overflow-y: auto;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+.preview-blocked {
+  padding: 60px 20px;
+  text-align: center;
+  color: #991b1b;
+}
+
+.preview-blocked h2 {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+/* Email Actions */
+.email-actions {
+  display: flex;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 2px solid #e2e8f0;
+}
+
+.btn-submit-admin,
+.btn-delete,
+.btn-mark-safe {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-submit-admin {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-submit-admin:hover {
+  background: #dc2626;
+}
+
+.btn-delete {
+  background: #64748b;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #475569;
+}
+
+.btn-mark-safe {
+  background: #10b981;
+  color: white;
+}
+
+.btn-mark-safe:hover {
+  background: #059669;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal-large {
+  max-width: 1000px;
+  height: 80vh;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  color: #1a365d;
+  font-size: 20px;
+}
+
+.form-group {
+  margin: 20px 0;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #1a365d;
+}
+
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #2c5282;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.btn-primary,
+.btn-secondary {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #2c5282;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #1a365d;
+}
+
+.btn-secondary {
+  background: #e2e8f0;
+  color: #1a365d;
+}
+
+.btn-secondary:hover {
+  background: #cbd5e0;
+}
+
+/* Sandbox Viewer */
+.sandbox-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.sandbox-header h3 {
+  margin: 0;
+}
+
+.sandbox-info {
+  display: flex;
+  gap: 15px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.sandbox-info span {
+  padding: 4px 10px;
+  background: #f7fafc;
+  border-radius: 12px;
+}
+
+.sandbox-iframe {
+  width: 100%;
+  height: 500px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.sandbox-footer {
+  margin-top: 15px;
+  padding: 12px;
+  background: #fffbeb;
+  border: 1px solid #f59e0b;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 13px;
+  color: #92400e;
+}
+
+/* Loading & Error States */
+.email-viewer-loading,
+.email-viewer-error {
+  padding: 60px 20px;
+  text-align: center;
+  font-size: 18px;
+  color: #4a5568;
+}
+
+.email-viewer-error {
+  color: #991b1b;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .email-viewer-container {
+    padding: 15px;
+  }
+
+  .email-actions {
+    flex-direction: column;
+  }
+
+  .attachment-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .attachment-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .btn-sandbox,
+  .btn-download {
+    width: 100%;
+  }
+}

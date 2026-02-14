@@ -1,0 +1,22 @@
+From: john.smith@company.com
+To: team@company.com
+Subject: Q4 Report Summary
+Date: Sat, 14 Dec 2024 05:00:00 +0000
+MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+
+<html>
+<body style="font-family: Arial, sans-serif;">
+<p>Hi Team,</p>
+<p>Please find the Q4 report summary below. The PDF attachment contains the full detailed report.</p>
+<h3>Q4 Highlights:</h3>
+<ul>
+    <li>Revenue: +15% YoY</li>
+    <li>New customers: 1,247</li>
+    <li>Client retention: 94%</li>
+    <li>NPS Score: 72</li>
+</ul>
+<p>Great work everyone! Let's discuss in tomorrow's meeting.</p>
+<p>Best,<br>John Smith<br>Marketing Director</p>
+</body>
+</html>

@@ -1,0 +1,52 @@
+{
+  "critical": {
+    "keywords": [
+      "urgent",
+      "immediate action required",
+      "account suspended",
+      "verify now",
+      "confirm your identity",
+      "expires today",
+      "last warning",
+      "final notice",
+      "unauthorized access",
+      "security alert",
+      "your account has been compromised"
+    ],
+    "score": 25
+  },
+  "high": {
+    "keywords": [
+      "act now",
+      "limited time",
+      "confirm within 24 hours",
+      "important update",
+      "verify your account",
+      "suspicious activity",
+      "unusual sign-in",
+      "password expiring",
+      "payment failed"
+    ],
+    "score": 15
+  },
+  "medium": {
+    "keywords": [
+      "please respond",
+      "action needed",
+      "update required",
+      "review your account",
+      "time sensitive",
+      "respond today"
+    ],
+    "score": 10
+  },
+  "low": {
+    "keywords": [
+      "reminder",
+      "follow up",
+      "just checking",
+      "fyi"
+    ],
+    "score": 5
+  }
+}

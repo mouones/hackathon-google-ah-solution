@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+*.pyo
+.Python
+venv/
+ENV/
+
+# Temp files
+*.tmp
+*.temp
+
+# Large datasets (external)
+external_datasets/
+
+# Large ML models
+*.safetensors
+*.bin
+*.h5
+
+# Large processed data files
+anti-fraud-platform/ml-service/processed_phishing_data.csv
+sentinel_shield/datasets/processed_phishing_data.csv
